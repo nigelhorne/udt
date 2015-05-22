@@ -5,6 +5,8 @@
  */
 #include <iostream>
 #include <sys/param.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 #include <unistd.h>
 #include <fcntl.h>
 #include <stdlib.h>
@@ -143,7 +145,7 @@ main(int argc, char **argv)
 		}
 
 		char status[24];
-		if(UDT::recv(s, status, sizeof(status) - 1) != 3) {
+		if(UDT::recv(s, status, sizeof(status) - 1, 0) != 3) {
 			cerr << q.q_hostname << " rejected the request " <<
 				status << endl;
 			UDT::close(s);
