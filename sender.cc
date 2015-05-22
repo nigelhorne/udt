@@ -4,6 +4,7 @@
  * to this program.
  */
 #include <iostream>
+#include <string>
 #include <sys/param.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -19,16 +20,18 @@
 #include <udt.h>
 #include <endian.h>
 
-#include "copy.h"
-
 using namespace std;
+
+#include "copy.h"
 
 #ifndef	htonll
 extern "C" {
 static	uint64_t	htonll(uint64_t n);
-static	uint64_t	ntohll(uint64_t n);
+// static	uint64_t	ntohll(uint64_t n);
 };
 #endif
+
+int64_t	do_send(UDTSOCKET s, ifstream& in_stream, int64_t& offset, int64_t nbytes);
 
 int
 main(int argc, char **argv)
@@ -151,17 +154,24 @@ main(int argc, char **argv)
 			UDT::close(s);
 			continue;
 		}
-		UDT::shutdown(s, SHUT_RD);
+		shutdown(s, SHUT_RD);
 
-		printf("sending %s, %lld bytes\n", request.r_filename, rlen);
+		printf("sending %s, %lld bytes\n", request.r_filename, (long long int)rlen);
 
-		if(UDT::sendfile(s, ifs, 0L, rlen) == UDT::ERROR)
+		int64_t zero = 0;
+		if(do_send(s, ifs, zero, rlen) == UDT::ERROR)
 			cerr << request.r_filename << ": " <<
 				UDT::getlasterror().getErrorMessage() << '\n';
 		UDT::close(s);
 	}
 
 	return close(fin);
+}
+
+int64_t
+do_send(UDTSOCKET s, ifstream& in_stream, int64_t& offset, int64_t nbytes)
+{
+	return UDT::sendfile(s, (fstream &)in_stream, offset, nbytes);
 }
 
 #ifndef	htonll
@@ -176,14 +186,14 @@ htonll(uint64_t n)
 #endif
 }
 
-static uint64_t
-ntohll(uint64_t n)
-{
-#if __BYTE_ORDER == __BIG_ENDIAN
-	return n; 
-#else
-	return (((uint64_t)ntohl(n)) << 32) + ntohl(n >> 32);
-#endif
-}
+// static uint64_t
+// ntohll(uint64_t n)
+// {
+// #if __BYTE_ORDER == __BIG_ENDIAN
+	// return n; 
+// #else
+	// return (((uint64_t)ntohl(n)) << 32) + ntohl(n >> 32);
+// #endif
+// }
 }
 #endif

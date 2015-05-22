@@ -18,6 +18,7 @@ struct request {
 
 struct queue {
 	char	q_filename[31];
+	/*string	q_filename;*/	/* TODO: Use string */
 	char	q_hostname[MAXHOSTNAMELEN];
 };
 
