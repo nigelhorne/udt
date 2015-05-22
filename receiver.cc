@@ -54,7 +54,7 @@ main(void)
 	memset(&sin, '\0', sizeof(struct sockaddr_in));
 	sin.sin_addr.s_addr = htonl(INADDR_ANY);
 
-	const struct servent *service = getservbyname("udt", "tcp");
+	const struct servent *service = getservbyname("udt-copy", "tcp");
 	sin.sin_port = (in_port_t)htons(service ? service->s_port : PORT);
 	sin.sin_family = AF_INET;
 

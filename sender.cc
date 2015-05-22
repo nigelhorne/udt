@@ -66,7 +66,7 @@ main(int argc, char **argv)
 	struct queue q;
 
 	const struct protoent *proto = getprotobyname("tcp");
-	const struct servent *service = getservbyname("udt", "tcp");
+	const struct servent *service = getservbyname("udt-copy", "tcp");
 
 	int nbytes;
 
