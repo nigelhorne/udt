@@ -37,6 +37,8 @@ static	uint64_t	ntohll(uint64_t n);
 };
 #endif
 
+static	int64_t	do_recv(UDTSOCKET s, ofstream& out_stream, int64_t& offset, int64_t nbytes);
+
 int
 main(void)
 {
@@ -139,7 +141,7 @@ main(void)
 		}
 
 #ifdef	SHUT_WR
-		UDT::shutdown(s, SHUT_WR);
+		shutdown(s, SHUT_WR);
 #endif		
 
 		request.r_len = ntohll(request.r_len);
@@ -156,7 +158,9 @@ main(void)
 				UDT::close(s);
 				continue;
 			}
-			if(UDT::recvfile(s, ofs, 0L, request.r_len) == UDT::ERROR) {
+			// if(UDT::recvfile(s, ofs, 0L, request.r_len) == UDT::ERROR) {
+			int64_t zero = 0;
+			if(do_recv(s, ofs, zero, request.r_len) == UDT::ERROR) {
 				cerr << request.r_filename << ": " <<
 					UDT::getlasterror().getErrorMessage() <<
 					'\n';
@@ -175,6 +179,12 @@ main(void)
 		 */
 	}
 	return 0;
+}
+
+static int64_t
+do_recv(UDTSOCKET s, ofstream& out_stream, int64_t& offset, int64_t nbytes)
+{
+	return UDT::recvfile(s, (fstream &)out_stream, offset, nbytes);
 }
 
 #ifndef	htonll

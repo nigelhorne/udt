@@ -31,7 +31,7 @@ static	uint64_t	htonll(uint64_t n);
 };
 #endif
 
-int64_t	do_send(UDTSOCKET s, ifstream& in_stream, int64_t& offset, int64_t nbytes);
+static	int64_t	do_send(UDTSOCKET s, ifstream& in_stream, int64_t& offset, int64_t nbytes);
 
 int
 main(int argc, char **argv)
@@ -168,7 +168,7 @@ main(int argc, char **argv)
 	return close(fin);
 }
 
-int64_t
+static int64_t
 do_send(UDTSOCKET s, ifstream& in_stream, int64_t& offset, int64_t nbytes)
 {
 	return UDT::sendfile(s, (fstream &)in_stream, offset, nbytes);
