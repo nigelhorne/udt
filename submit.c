@@ -9,9 +9,11 @@
 #include <errno.h>
 #include <sys/param.h>
 #include <string.h>
+#include <unistd.h>
 
 #include "copy.h"
 
+int
 main(int argc, const char **argv)
 {
 	int fifo;

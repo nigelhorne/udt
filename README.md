@@ -1,4 +1,4 @@
-File transfer using UDT.  Download the library for UDT from
+File transfer using UDT on Linux.  Download the library for UDT from
 http://udt.sourceforge.net/.
 
 There are 3 programs:
