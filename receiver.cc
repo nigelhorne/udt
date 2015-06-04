@@ -34,7 +34,7 @@ typedef	unsigned short	in_port_t;
 extern "C" {
 static	uint64_t	htonll(uint64_t n);
 static	uint64_t	ntohll(uint64_t n);
-};
+}
 #endif
 
 static	int64_t	do_recv(UDTSOCKET s, ofstream& out_stream, int64_t& offset, int64_t nbytes);

@@ -8,3 +8,6 @@ There are 3 programs:
 Run "build" to compile, and move the executables to a suitable place.
 Add "udt-copy" to /etc/services, using any port number (above 1024) that is not
 in use on your system.
+
+Add to /etc/rc.local. I have, for example:
+	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib /usr/local/etc/receiver&
