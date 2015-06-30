@@ -44,7 +44,7 @@ main(int argc, char **argv)
 	/*
 	 * Open the named pipe which receives requests
 	 */
-	const int fin = open(argv[1], O_RDONLY);
+	int fin = open(argv[1], O_RDONLY);
 
 	if(fin < 0) {
 		perror(argv[1]);
@@ -72,7 +72,12 @@ main(int argc, char **argv)
 
 	while((nbytes = read(fin, &q, sizeof(struct queue))) >= 0) {
 		if(nbytes == 0) {
-			sleep(1);
+			close(fin);
+			fin = open(argv[1], O_RDONLY);
+			if(fin < 0) {
+				perror(argv[1]);
+				return errno;
+			}
 			continue;
 		}
 

@@ -153,7 +153,7 @@ main(void)
 		if(request.r_len) {
 			ofstream ofs(request.r_filename, ofstream::out|ofstream::binary);
 
-			if(ofs.bad()) {
+			if((ofs == NULL) || ofs.bad()) {
 				perror(request.r_filename);
 				UDT::close(s);
 				continue;
