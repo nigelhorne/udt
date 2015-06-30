@@ -4,4 +4,4 @@ else
 	$CC -s -o submit $CFLAGS submit.c
 fi
 g++ -s -o sender $CXXFLAGS sender.cc -ludt -lpthread
-g++ -g -o receiver $CXXFLAGS receiver.cc -lpthread -ludt
+g++ -s -o receiver $CXXFLAGS receiver.cc -lpthread -ludt

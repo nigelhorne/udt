@@ -17,7 +17,7 @@
 #include <errno.h>
 #include <memory.h>
 #include <netdb.h>
-#include <udt.h>
+#include <udt/udt.h>
 #include <endian.h>
 
 using namespace std;
@@ -28,7 +28,7 @@ using namespace std;
 extern "C" {
 static	uint64_t	htonll(uint64_t n);
 // static	uint64_t	ntohll(uint64_t n);
-};
+}
 #endif
 
 static	int64_t	do_send(UDTSOCKET s, ifstream& in_stream, int64_t& offset, int64_t nbytes);
@@ -104,7 +104,7 @@ main(int argc, char **argv)
 		 */
 		ifstream ifs(q.q_filename, ifstream::in|ifstream::binary);
 
-		if(ifs.fail()) {
+		if((ifs == NULL) || ifs.fail()) {
 			perror(q.q_filename);
 			continue;
 		}

@@ -19,7 +19,7 @@
 #include <endian.h>
 #endif
 #include <errno.h>
-#include <udt.h>
+#include <udt/udt.h>
 
 #include "copy.h"
 
