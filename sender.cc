@@ -71,8 +71,10 @@ main(int argc, char **argv)
 	int nbytes;
 
 	while((nbytes = read(fin, &q, sizeof(struct queue))) >= 0) {
-		if(nbytes == 0)
+		if(nbytes == 0) {
+			sleep(1);
 			continue;
+		}
 
 		char *ptr = strrchr(q.q_filename, '/');
 
