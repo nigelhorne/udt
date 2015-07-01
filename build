@@ -3,5 +3,5 @@ if [ x$CC = x ]; then
 else
 	$CC -s -o submit $CFLAGS submit.c
 fi
-g++ -s -o sender $CXXFLAGS sender.cc -ludt -lpthread
-g++ -s -o receiver $CXXFLAGS receiver.cc -lpthread -ludt
+g++ -s -o sender $CXXFLAGS sender.cc -ludt -lpthread &&
+	g++ -s -o receiver $CXXFLAGS receiver.cc -lpthread -ludt

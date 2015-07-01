@@ -31,8 +31,6 @@ static	uint64_t	htonll(uint64_t n);
 }
 #endif
 
-static	int64_t	do_send(UDTSOCKET s, ifstream& in_stream, int64_t& offset, int64_t nbytes);
-
 int
 main(int argc, char **argv)
 {
@@ -102,7 +100,7 @@ main(int argc, char **argv)
 		 * UDT needs C++, and ifstream doesn't allow us to get to the
 		 * file descriptor, the use of fstat() is not possible :-(
 		 */
-		ifstream ifs(q.q_filename, ifstream::in|ifstream::binary);
+		fstream ifs(q.q_filename, ios::in|ifstream::binary);
 
 		if((ifs == NULL) || ifs.fail()) {
 			perror(q.q_filename);
@@ -165,20 +163,14 @@ main(int argc, char **argv)
 
 		printf("sending %s, %lld bytes\n", request.r_filename, (long long int)rlen);
 
-		int64_t zero = 0;
-		if(do_send(s, ifs, zero, rlen) == UDT::ERROR)
+		int64_t offset = 0;
+		if(UDT::sendfile(s, ifs, offset, rlen) == UDT::ERROR)
 			cerr << request.r_filename << ": " <<
 				UDT::getlasterror().getErrorMessage() << '\n';
 		UDT::close(s);
 	}
 
 	return close(fin);
-}
-
-static int64_t
-do_send(UDTSOCKET s, ifstream& in_stream, int64_t& offset, int64_t nbytes)
-{
-	return UDT::sendfile(s, (fstream &)in_stream, offset, nbytes);
 }
 
 #ifndef	htonll
