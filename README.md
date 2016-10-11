@@ -20,9 +20,12 @@ Sending machines:
 
 	mv submit /usr/local/bin
 	mv sender /usr/local/etc
+
 Add this to /etc/rc.local:
+
 	mkfifo /var/run/udt && chmod 666 /var/run/udt
 	LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib /usr/local/etc/sender /var/run/udt 2>&1 >> /var/log/udt&
 
 Then to copy a file from a sending machine to the receiver named "server1"
+
 	submit /var/run/udt server1 /tmp/foo
