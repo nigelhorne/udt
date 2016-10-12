@@ -66,7 +66,6 @@ main(void)
 		return errno;
 	}
 
-#if	0
 	switch(fork()) {
 		case -1:
 			perror("fork");
@@ -76,7 +75,6 @@ main(void)
 		default:
 			return 0;
 	}
-#endif
 
 #ifdef	_MSC_VER
 	if(getenv("TEMP")) {
@@ -151,7 +149,7 @@ main(void)
 		if(request.r_len) {
 			fstream ofs(request.r_filename, ios::out|ios::binary|ios::trunc);
 
-			if((ofs == NULL) || ofs.bad()) {
+			if((!ofs) || ofs.bad()) {
 				perror(request.r_filename);
 				UDT::close(s);
 				continue;

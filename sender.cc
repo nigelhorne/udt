@@ -49,7 +49,6 @@ main(int argc, char **argv)
 		return errno;
 	}
 
-#if	0
 	switch(fork()) {
 		case -1:
 			perror("fork");
@@ -59,7 +58,6 @@ main(int argc, char **argv)
 		default:
 			return 0;
 	}
-#endif
 
 	struct queue q;
 
@@ -102,7 +100,7 @@ main(int argc, char **argv)
 		 */
 		fstream ifs(q.q_filename, ios::in|ifstream::binary);
 
-		if((ifs == NULL) || ifs.fail()) {
+		if((!ifs) || ifs.fail()) {
 			perror(q.q_filename);
 			continue;
 		}
