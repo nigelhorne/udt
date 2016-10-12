@@ -1,5 +1,6 @@
 Simple queue system to transfer files using UDT.
 Download the library for UDT from http://udt.sourceforge.net/ or
+
 	apt-get install libudt-dev
 
 There are 3 programs:
@@ -11,6 +12,7 @@ Add "udt-copy" to /etc/services, using any port number (above 1024) that is not
 in use on your system.
 
 To install:
+
 	mv receiver /usr/local/etc
 	mv receiver submit /usr/local/bin
 	mv sender /usr/local/etc
@@ -18,23 +20,23 @@ To install:
 If you are using systemd, copy and paste this content into
 /etc/systemd/system/udt.service
 
-    [Unit]
-    Description=Send and receive files using UDT
-    After=network.target
+	[Unit]
+	Description=Send and receive files using UDT
+	After=network.target
 
-    [Service]
-    ExecStart=/bin/dash -c "/bin/rm -f /var/run/udt && /usr/bin/mkfifo -m 666 /var/run/udt && /usr/local/etc/receiver && /usr/local/etc/sender /var/run/udt"
-    KillMode=process
-    Restart=on-failure
+	[Service]
+	ExecStart=/bin/dash -c "/bin/rm -f /var/run/udt && /usr/bin/mkfifo -m 666 /var/run/udt && /usr/local/etc/receiver && /usr/local/etc/sender /var/run/udt"
+	KillMode=process
+	Restart=on-failure
 
-    [Install]
-    WantedBy=multi-user.target
+	[Install]
+	WantedBy=multi-user.target
 
 Then run
 
-    systemctl daemon-reload
-    systemctl enable udt.service
-    systemctl start udt.service
+	systemctl daemon-reload
+	systemctl enable udt.service
+	systemctl start udt.service
 
 If you are not using systemd, put these into /etc/rc.local:
 
