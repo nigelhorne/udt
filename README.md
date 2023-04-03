@@ -2,6 +2,7 @@ Simple queue system to transfer files using UDT.
 Download the library for UDT from http://udt.sourceforge.net/ or
 
 	apt-get install libudt-dev
+	yum install udt-devel
 
 There are 3 programs:
 	sender and receiver are daemons to run on the source and target machine;
