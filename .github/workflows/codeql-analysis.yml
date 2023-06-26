@@ -65,7 +65,9 @@ jobs:
     #   make bootstrap
     #   make release
     - run: |
-       apt-get install libudt-dev
+       sudo apt update
+       sudo apt upgrade
+       sudo apt install libudt-dev
        bash build
 
     - name: Perform CodeQL Analysis
