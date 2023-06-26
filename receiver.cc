@@ -144,7 +144,7 @@ main(void)
 		/*request.r_rlen = ntohll(request.r_rlen);*/
 
 		printf("receiving %s, %llu bytes\n",
-			request.r_filename, request.r_len);
+			request.r_filename, (long long unsigned int)request.r_len);
 
 		if(request.r_len) {
 			fstream ofs(request.r_filename, ios::out|ios::binary|ios::trunc);
