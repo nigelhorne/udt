@@ -177,7 +177,7 @@ static uint64_t
 htonll(uint64_t n)
 {
 #if __BYTE_ORDER == __BIG_ENDIAN
-	return n; 
+	return n;
 #else
 	return (((uint64_t)htonl(n)) << 32) + htonl(n >> 32);
 #endif
@@ -187,7 +187,7 @@ htonll(uint64_t n)
 // ntohll(uint64_t n)
 // {
 // #if __BYTE_ORDER == __BIG_ENDIAN
-	// return n; 
+	// return n;
 // #else
 	// return (((uint64_t)ntohl(n)) << 32) + ntohl(n >> 32);
 // #endif

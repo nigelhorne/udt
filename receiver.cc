@@ -115,7 +115,7 @@ main(void)
 		size_t nbytes = UDT::recv(s, (char *)&request, sizeof(struct request), 0);
 #else
 		ssize_t nbytes = UDT::recv(s, (char *)&request, sizeof(struct request), 0);
-#endif	
+#endif
 
 		if(nbytes != sizeof(struct request)) {
 			if(nbytes == UDT::ERROR)
@@ -138,7 +138,7 @@ main(void)
 
 #ifdef	SHUT_WR
 		shutdown(s, SHUT_WR);
-#endif		
+#endif
 
 		request.r_len = ntohll(request.r_len);
 		/*request.r_rlen = ntohll(request.r_rlen);*/
@@ -182,7 +182,7 @@ static uint64_t
 htonll(uint64_t n)
 {
 #if __BYTE_ORDER == __BIG_ENDIAN
-	return n; 
+	return n;
 #else
 	return (((uint64_t)htonl(n)) << 32) + htonl(n >> 32);
 #endif
@@ -192,7 +192,7 @@ static uint64_t
 ntohll(uint64_t n)
 {
 #if __BYTE_ORDER == __BIG_ENDIAN
-	return n; 
+	return n;
 #else
 	return (((uint64_t)ntohl(n)) << 32) + ntohl(n >> 32);
 #endif
