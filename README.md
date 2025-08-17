@@ -15,7 +15,7 @@ in use on your system.
 To install:
 
 	mv receiver /usr/local/etc
-	mv receiver submit /usr/local/bin
+	mv submit /usr/local/bin
 	mv sender /usr/local/etc
 
 If you are using systemd, copy and paste this content into
